@@ -120,7 +120,7 @@ const abort: () => WretchAddon<AbortWretch, AbortResolver> = () => {
     beforeRequest(wretch, options, state) {
       const fetchController = new AbortController()
       const existingSignal = options["signal"]
-      if (existingSignal && "any" in AbortSignal) {
+      if (existingSignal && typeof AbortSignal !== "undefined" && "any" in AbortSignal) {
         options["signal"] = AbortSignal.any([fetchController.signal, existingSignal])
       } else {
         options["signal"] = fetchController.signal
